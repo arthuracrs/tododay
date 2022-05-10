@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@200&family=Space+Mono&display=swap"
+        rel="stylesheet">
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .flex-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .todo {
+            font-size: 40px;
+            text-shadow: 0px 0px 7px grey;
+            font-weight: lighter;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .checkbox {
+            width: 30px;
+            height: 30px;
+            box-shadow: 0px 0px 7px grey;
+        }
+
+        .today {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+
+            width: 300px;
+
+            text-align: center;
+            font-size: 50px;
+            font-weight: lighter;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0px 0px 7px gray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="today" class="today"></h1>
+    <div class="flex-container">
+
+        <form id="todo" class="todo">
+            <input class="checkbox" type="checkbox" id="english" name="english" value="english">
+            <label for="english"> english</label><br>
+            <input class="checkbox" type="checkbox" id="code-challenge" name="code-challenge" value="code-challenge">
+            <label for="code-challenge">code-challenge</label><br>
+            <input class="checkbox" type="checkbox" id="roadmap" name="roadmap" value="roadmap">
+            <label for="roadmap">roadmap</label><br>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const now = new Date();
+
+        const today = document.getElementById('today')
+        today.innerHTML = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(now)
+
+        const form = document.getElementById('todo')
+        form.addEventListener('change', (event) => {
+            event.preventDefault()
+
+            const english = document.getElementById('english').checked
+            const codeChallenge = document.getElementById('code-challenge').checked
+            const roadmap = document.getElementById('roadmap').checked
+
+            axios.request({
+                method: 'POST',
+                url: `http://localhost:3000/tododay`,
+                data: {
+                    english, codeChallenge, roadmap
+                },
+            })
+        })
+    </script>
+</body>
+
+</html>
