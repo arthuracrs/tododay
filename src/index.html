@@ -5,12 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@200&family=Space+Mono&display=swap"
-        rel="stylesheet">
+    <title>USD ToDo</title>
 
     <style>
         html,
@@ -64,34 +59,59 @@
 <body>
     <h1 id="today" class="today"></h1>
     <div class="flex-container">
-
         <form id="todo" class="todo">
             <input class="checkbox" type="checkbox" id="english" name="english" value="english">
-            <label for="english"> english</label><br>
+            <label for="english"> English</label><br>
             <input class="checkbox" type="checkbox" id="code-challenge" name="code-challenge" value="code-challenge">
-            <label for="code-challenge">code-challenge</label><br>
+            <label for="code-challenge">Code Challenge</label><br>
             <input class="checkbox" type="checkbox" id="roadmap" name="roadmap" value="roadmap">
-            <label for="roadmap">roadmap</label><br>
+            <label for="roadmap">Roadmap Topic</label><br>
         </form>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        const now = new Date();
+
+    </script>
+    <script>
+        const todayDate = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(new Date())
+
+        let englishCheckbox = document.getElementById('english')
+        let codeChallengeCheckbox = document.getElementById('code-challenge')
+        let roadmapCheckbox = document.getElementById('roadmap')
+
+        const loadDay = async () => {
+            const id = todayDate
+            const response = await axios.request({
+                method: 'GET',
+                url: `http://localhost:3000/day?id=${id}`,
+            })
+
+            if (!response) return
+
+            const { english, codeChallenge, roadmap } = response.data
+
+            englishCheckbox = document.getElementById('english').checked = english
+            codeChallengeCheckbox = document.getElementById('code-challenge').checked = codeChallenge
+            roadmapCheckbox = document.getElementById('roadmap').checked = roadmap
+        }
+
+        loadDay()
 
         const today = document.getElementById('today')
-        today.innerHTML = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(now)
+        today.innerHTML = todayDate
 
         const form = document.getElementById('todo')
-        form.addEventListener('change', (event) => {
+        form.addEventListener('change', async (event) => {
             event.preventDefault()
 
             const english = document.getElementById('english').checked
             const codeChallenge = document.getElementById('code-challenge').checked
             const roadmap = document.getElementById('roadmap').checked
 
-            axios.request({
+            await axios.request({
                 method: 'POST',
-                url: `http://localhost:3000/tododay`,
+                url: `http://localhost:3000/day`,
                 data: {
                     english, codeChallenge, roadmap
                 },
