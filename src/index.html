@@ -62,8 +62,8 @@
         <form id="todo" class="todo">
             <input class="checkbox" type="checkbox" id="english" name="english" value="english">
             <label for="english"> English</label><br>
-            <input class="checkbox" type="checkbox" id="code-challenge" name="code-challenge" value="code-challenge">
-            <label for="code-challenge">A Code Challenge</label><br>
+            <input class="checkbox" type="checkbox" id="code-challenge" name="code-challenge" value="codeChallenge">
+            <label for="code-challenge">Code Challenge</label><br>
             <input class="checkbox" type="checkbox" id="roadmap" name="roadmap" value="roadmap">
             <label for="roadmap">A Roadmap Topic</label><br>
         </form>
@@ -102,19 +102,18 @@
         today.innerHTML = todayDate
 
         const form = document.getElementById('todo')
+
         form.addEventListener('change', async (event) => {
             event.preventDefault()
 
-            const english = document.getElementById('english').checked
-            const codeChallenge = document.getElementById('code-challenge').checked
-            const roadmap = document.getElementById('roadmap').checked
-
+            let requestBody = {}
+            for (let prop of form.elements)
+                requestBody[prop.value] = prop.checked
+             
             await axios.request({
                 method: 'POST',
                 url: `http://localhost:3000/day`,
-                data: {
-                    english, codeChallenge, roadmap
-                },
+                data: requestBody,
             })
         })
     </script>
