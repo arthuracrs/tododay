@@ -33,7 +33,7 @@ app.post('/day', async (req, res) => {
     const Day = require('./models/day.schema');
     await Day.sync()
 
-    const dayId = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(new Date())
+    const dayId = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Recife' }).format(new Date())
 
     try {
         const newDay = await Day.upsert({
