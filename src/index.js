@@ -6,11 +6,12 @@ const database = require('./db');
 const PORT = process.env.PORT || 5000
 
 const app = express()
+app.set('view engine', 'ejs');
 app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/index.html'));
+    res.render('index.ejs', { port: PORT });
 });
 
 app.get('/day', async (req, res) => {
