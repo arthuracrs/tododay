@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.render('index.ejs', { port: PORT, app_name: process.env.HEROKU_APP_NAME });
+    res.render('index.ejs', { port: PORT, app_name: process.env.HEROKU_APP_NAME || 'fom'});
 });
 
 app.get('/day', async (req, res) => {
