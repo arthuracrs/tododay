@@ -1,9 +1,9 @@
 const express = require('express')
 const cors = require('cors')
-const path = require('path');
 const database = require('./db');
 
 const PORT = process.env.PORT || 5000
+const appUrl = process.env.APP_URL || `http://localhost:${PORT}`
 
 const app = express()
 app.set('view engine', 'ejs');
@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.render('index.ejs', { port: PORT, app_name: process.env.HEROKU_APP_NAME || 'fom'});
+    res.render('index.ejs', { appUrl});
 });
 
 app.get('/day', async (req, res) => {
