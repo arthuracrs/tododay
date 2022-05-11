@@ -112,7 +112,7 @@
              
             await axios.request({
                 method: 'POST',
-                url: `http://localhost:3000/day`,
+                url: `http://localhost:${process.env.PORT || 5000}/day`,
                 data: requestBody,
             })
         })
