@@ -3,6 +3,8 @@ const cors = require('cors')
 const path = require('path');
 const database = require('./db');
 
+const PORT = process.env.PORT || 5000
+
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -52,8 +54,8 @@ app.post('/day', async (req, res) => {
 })
 
 database.sync().then(async () => {
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
         console.clear()
-        console.log('running on 3000')
+        console.log('running on ' + PORT)
     })
 })
