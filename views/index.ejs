@@ -58,6 +58,7 @@
 
 <body>
     <h1 id="today" class="today"></h1>
+    <h1><%-app_name %></h1>
     <div class="flex-container">
         <form id="todo" class="todo">
             <input class="checkbox" type="checkbox" id="english" name="english" value="english">
@@ -74,7 +75,7 @@
 
     </script>
     <script>
-        const port = <%= port %>
+        const port = <%- port %>
         const todayDate = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Recife' }).format(new Date())
 
         let englishCheckbox = document.getElementById('english')
