@@ -2,7 +2,12 @@ const { Sequelize } = require("sequelize");
 
 let sequelize;
 
-if (process.env.RUN_MODE != 'dev') {
+if (process.env.RUN_MODE == 'dev') {
+  sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: './database.sqlite'
+  })
+} else {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialectOptions: {
       ssl: {
@@ -11,11 +16,6 @@ if (process.env.RUN_MODE != 'dev') {
     },
     logging: false
   });
-} else {
-  sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './database.sqlite'
-  })
 }
 
 sequelize
