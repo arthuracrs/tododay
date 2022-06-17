@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="appUrl" content=<%=appUrl %>>
+    <style>
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 35px 70px;
+            place-content: start;
+            border-radius: 3px;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: -40px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 20pt;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" class="main"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const getMeta = (metaName) => {
+            const metas = document.getElementsByTagName('meta');
+
+            for (let i = 0; i < metas.length; i++) {
+                if (metas[i].getAttribute('name') === metaName) {
+                    return metas[i].getAttribute('content');
+                }
+            }
+
+            return '';
+        }
+
+        const loadDays = async () => {
+            try {
+                const response = await axios.request({
+                    method: 'GET',
+                    url: `${appUrl}/days`,
+                })
+
+                return response.data
+            } catch (error) {
+                console.log(error)
+                return []
+            }
+        }
+    </script>
+    <script src="./Component.js"></script>
+    <script>
+        const appUrl = getMeta('appUrl')
+        const main = document.getElementById('main')
+
+        loadDays().then(days => {
+            for (let i = 0; i < days.length; i++) {
+                let num = 0
+
+                if (days[i].english)
+                    num++
+                if (days[i].codeChallenge)
+                    num++
+                if (days[i].roadmap)
+                    num++
+
+                main.append(new Box({ num, cssClass: 'tooltip', text: days[i].id }))
+            }
+        })
+    </script>
+</body>
+
+</html>

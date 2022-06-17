@@ -1,14 +1,19 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
+// const sequelize = new Sequelize(process.env.DATABASE_URL, {
 
-  dialectOptions: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  },
-  logging: false
-});
+//   dialectOptions: {
+//     ssl: {
+//       rejectUnauthorized: false,
+//     },
+//   },
+//   logging: false
+// });
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './database.sqlite'
+})
 
 //check connection (optional)
 sequelize
