@@ -1,21 +1,23 @@
 const { Sequelize } = require("sequelize");
 
-// const sequelize = new Sequelize(process.env.DATABASE_URL, {
+let sequelize;
 
-//   dialectOptions: {
-//     ssl: {
-//       rejectUnauthorized: false,
-//     },
-//   },
-//   logging: false
-// });
+if (process.env.RUN_MODE == 'dev') {
+  sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: './database.sqlite'
+  })
+} else {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
+    logging: false
+  });
+}
 
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './database.sqlite'
-})
-
-//check connection (optional)
 sequelize
   .authenticate()
   .then(() => console.log("Connection has been established successfully."))

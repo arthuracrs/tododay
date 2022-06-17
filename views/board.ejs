@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <meta name="appUrl" content=<%=appUrl %>>
     <style>
+        body {
+            overflow-x: hidden;
+        }
+
         .main {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            padding: 35px 70px;
-            place-content: start;
-            border-radius: 3px;
+            display: grid;
+            place-content: center;
+            grid-template-columns: repeat(auto-fit, 7VH);
+            gap: .7vh;
+        }
+
+        box {
+            width: 7VH;
+            height: 7VH;
+            border-radius: 5px;
+            background: gold;
         }
 
         .tooltip {
@@ -27,8 +42,7 @@
             padding: 5px 10px;
             position: absolute;
             z-index: 1;
-            bottom: 125%;
-            left: -40px;
+            left: -25pt;
             opacity: 0;
             transition: opacity 0.3s;
             font-size: 20pt;
@@ -36,28 +50,19 @@
 
         .tooltip:hover .tooltiptext {
             visibility: visible;
-            opacity: 1;
+            opacity: .9;
         }
     </style>
 </head>
 
 <body>
+
     <div id="main" class="main"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./Component.js"></script>
+    <script src="./utils.js"></script>
     <script>
-        const getMeta = (metaName) => {
-            const metas = document.getElementsByTagName('meta');
-
-            for (let i = 0; i < metas.length; i++) {
-                if (metas[i].getAttribute('name') === metaName) {
-                    return metas[i].getAttribute('content');
-                }
-            }
-
-            return '';
-        }
-
         const loadDays = async () => {
             try {
                 const response = await axios.request({
@@ -72,7 +77,6 @@
             }
         }
     </script>
-    <script src="./Component.js"></script>
     <script>
         const appUrl = getMeta('appUrl')
         const main = document.getElementById('main')

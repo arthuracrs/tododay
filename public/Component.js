@@ -39,46 +39,24 @@ class C {
 
 class Box extends C {
     setStyle() {
-        let style = {
-            color: 'black',
-            backgroundColor: 'lightgrey',
-            display: 'flex',
-            placeItems: 'center',
-            textAlign: 'center',
-            minHeight: '40pt',
-            minWidth: '40pt',
-            borderRadius: '3px'
+        let style = {}
+
+        const color = {
+            0: '#E74C3C',
+            1: '#A9CCE3',
+            2: '#5499C7',
+            3: '#154360',
         }
 
-        if (this.props.num == 0) {
-            style.backgroundColor = '#E74C3C'
-        } else if (this.props.num == 1) {
-            style.backgroundColor = '#A9CCE3'
-        } else if (this.props.num == 2) {
-            style.backgroundColor = '#5499C7'
-        } else if (this.props.num == 3) {
-            style.backgroundColor = '#154360'
-        }
+        style.backgroundColor = color[this.props.num]
 
         return style
     }
 
     setInnerHtml() {
         return `
-        <div class="tooltip">
+        <div class="tooltip"> 
             <span class="tooltiptext">${this.props.text}</span>
         </div>`
-    }
-}
-
-class Day extends C {
-    setStyle() {
-        return {
-            width: '100%'
-        }
-    }
-
-    setInnerHtml() {
-        return '<i>20/06/2002</i>'
     }
 }

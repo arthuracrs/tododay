@@ -73,21 +73,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
+    <script src="./utils.js"></script>
     <script>
-        const getMeta = (metaName) => {
-            const metas = document.getElementsByTagName('meta');
-
-            for (let i = 0; i < metas.length; i++) {
-                if (metas[i].getAttribute('name') === metaName) {
-                    return metas[i].getAttribute('content');
-                }
-            }
-
-            return '';
-        }
-
         const loadDay = async (dayInput) => {
             const id = dayInput
             const response = await axios.request({
