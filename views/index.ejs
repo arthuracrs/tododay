@@ -26,13 +26,20 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            margin: 0 5%;
         }
 
         .todo {
-            font-size: 40px;
+            font-size: 40pt;
             text-shadow: 0px 0px 7px grey;
             font-weight: lighter;
             font-family: 'Courier New', Courier, monospace;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .todo {
+                font-size: 25pt;
+            }
         }
 
         .checkbox {
@@ -57,11 +64,11 @@
             text-shadow: 0px 0px 7px gray;
         }
 
-        #link-roadmap{
+        #link-roadmap {
             cursor: pointer;
         }
 
-        #link-roadmap:hover{
+        #link-roadmap:hover {
             text-shadow: 0px 0px 7px black;
         }
     </style>
@@ -115,9 +122,9 @@
     </script>
     <script>
         const linkRoadmap = document.getElementById('link-roadmap')
-        linkRoadmap.addEventListener('click', (e)=>{
+        linkRoadmap.addEventListener('click', (e) => {
             e.preventDefault()
-            window.open('https://roadmap.sh/backend','_blank');
+            window.open('https://roadmap.sh/backend', '_blank');
         })
         const appUrl = getMeta('appUrl')
         const todayDate = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Recife' }).format(new Date())
