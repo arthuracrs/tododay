@@ -64,11 +64,15 @@
             text-shadow: 0px 0px 7px gray;
         }
 
-        #link-roadmap {
+        #link-roadmap, #link-code-challenge {
             cursor: pointer;
         }
 
         #link-roadmap:hover {
+            text-shadow: 0px 0px 7px black;
+        }
+
+        #link-code-challenge:hover {
             text-shadow: 0px 0px 7px black;
         }
     </style>
@@ -81,7 +85,7 @@
             <input class="checkbox" type="checkbox" id="english" name="english" value="english">
             <label for="english"> English</label><br>
             <input class="checkbox" type="checkbox" id="code-challenge" name="code-challenge" value="codeChallenge">
-            <label for="code-challenge">Code Challenge</label><br>
+            <label id="link-code-challenge" for="code-challenge">Code Challenge</label><br>
             <input class="checkbox" type="checkbox" id="roadmap" name="roadmap" value="roadmap">
             <label id="link-roadmap" for="roadmap">A Roadmap Topic</label><br>
         </form>
@@ -126,6 +130,13 @@
             e.preventDefault()
             window.open('https://roadmap.sh/backend', '_blank');
         })
+
+        const linkCodeChallenge = document.getElementById('link-code-challenge')
+        linkCodeChallenge.addEventListener('click', (e) => {
+            e.preventDefault()
+            window.open('https://neetcode.io/', '_blank');
+        })
+        
         const appUrl = getMeta('appUrl')
         const todayDate = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Recife' }).format(new Date())
 
