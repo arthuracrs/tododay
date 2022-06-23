@@ -42,7 +42,12 @@ app.get('/days', async (req, res) => {
     await Day.sync()
 
     try {
-        const result = await Day.findAll({})
+        const result = (await Day.findAll({})).sort((a, b) => {
+            const date1 = new Date(a.dataValues.date);
+            const date2 = new Date(b.dataValues.date);
+
+            return date1 - date2;
+        })
 
         res.json(result)
     } catch (error) {
